@@ -36,3 +36,39 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ // Set up Event Listener for deck, 
+//  Open CMD and Use live-server in the parent folder
+let cardDeck = document.getElementById("deck");
+let moveCounter = 0
+
+openCards = []
+openCardSymbols = []
+
+
+ cardDeck.addEventListener("click", function(ev){
+     if (ev.target.className == "card" && ev.target.nodeName == "LI") {
+        let selectedCard = ev.target;
+        openCards.push(selectedCard);
+        selectedCard.classList.add("open","show");
+
+        let cardSymbol = selectedCard.childNodes[1].className;
+        openCardSymbols.push(cardSymbol);
+        
+        allOpen();
+     }
+ })
+
+//  cardDeck.addEventListener("click", allOpen)
+ function allOpen() {
+     let allOpenCards = document.querySelectorAll(".open");
+     console.log(allOpenCards)
+     if (allOpenCards.length > 2) {
+        allOpenCards.forEach(element => {
+            element.classList.remove("open", "show")
+        });
+     }
+     
+    }
+
+    
