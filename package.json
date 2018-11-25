@@ -1,0 +1,25 @@
+{
+  "name": "memoraj",
+  "version": "1.0.0",
+  "description": "* [Instructions](#instructions)\r * [Contributing](#contributing)",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moaraj/Memoraj.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moaraj/Memoraj/issues"
+  },
+  "homepage": "https://github.com/moaraj/Memoraj#readme",
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "prettier": "^1.15.2"
+  }
+}

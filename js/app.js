@@ -40,10 +40,10 @@ function shuffle(array) {
  // Set up Event Listener for deck, 
 //  Open CMD and Use live-server in the parent folder
 let cardDeck = document.getElementById("deck");
-let moveCounter = 0
+let moveCounter = 0;
 
-openCards = []
-openCardSymbols = []
+openCards = [];
+openCardSymbols = [];
 
 
  cardDeck.addEventListener("click", function(ev){
@@ -54,21 +54,26 @@ openCardSymbols = []
 
         let cardSymbol = selectedCard.childNodes[1].className;
         openCardSymbols.push(cardSymbol);
-        
         allOpen();
      }
- })
+ });
+
+ 
 
 //  cardDeck.addEventListener("click", allOpen)
  function allOpen() {
      let allOpenCards = document.querySelectorAll(".open");
-     console.log(allOpenCards)
+     console.log(allOpenCards);
      if (allOpenCards.length > 2) {
         allOpenCards.forEach(element => {
-            element.classList.remove("open", "show")
+            element.classList.remove("open", "show");
         });
      }
-     
     }
 
-    
+
+    function resetGame() {
+        let allOpenCards = document.querySelectorAll(".open");
+        addEventListener("click", );
+
+    }
