@@ -13,8 +13,8 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-  let currentIndex = array.length; var temporaryValue; var 
-randomIndex;
+  let currentIndex = array.length; let temporaryValue; let
+    randomIndex;
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -48,18 +48,19 @@ const openCardSymbols = [];
 
 
 cardDeck.addEventListener('click', (ev) => {
-     if (ev.target.className == "card" && ev.target.nodeName == "LI") {
-        let selectedCard = ev.target;
-        openCards.push(selectedCard);
-        selectedCard.classList.add("oen","show");
-         moveCounter += 1;
+  if (ev.target.className == 'card' && ev.target.nodeName == 'LI') {
+    const selectedCard = ev.target;
+    openCards.push(selectedCard);
+    selectedCard.classList.add('oen', 'show');
+    moveCounter += 1;
 
-        let cardSymbol = selectedCard.childNodes[1].className;
+    const cardSymbol = selectedCard.childNodes[1].className;
     openCardSymbols.push(cardSymbol);
-        allOpen();
+    allOpen();
     moveCounterIncrement();
-     }
- });
+    starCounterIncrement();
+  }
+});
 
 
 //  cardDeck.addEventListener("click", allOpen)
@@ -73,17 +74,14 @@ function allOpen() {
 }
 
 
-function resetGame() {
+/* function resetGame() {
   const allOpenCards = document.querySelectorAll('.open');
-  addEventListener('click');
+  allOpenCards.classList.remove('open match');
+} */
 
-}
-
-function scoreKeeping() {
-
-}
 
 function moveCounterIncrement() {
+  // eslint-disable-next-line no-undef
   const counterElement = document.getElementsByClassName('moves')[0];
   counterElement.innerHTML = moveCounter;
 }
@@ -94,11 +92,11 @@ function starCounterIncrement() {
   const starList = stars.querySelectorAll('LI');
   const starArray = Array.from(starList);
 
-  if (moveCounter < 20) {
+  if (moveCounter < 4) {
     starArray.map(starItem => starItem.classList.add('glow'));
-  } else if (moveCounter > 25) {
+  } else if (moveCounter < 8) {
     starList[2].classList.remove('glow');
-  } else if (moveCounter > 30) {
+  } else {
     starList[1].classList.remove('glow');
   }
 }
