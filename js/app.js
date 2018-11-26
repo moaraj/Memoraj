@@ -50,19 +50,7 @@ let moveCounter = 0;
 const openCards = [];
 let openCardSymbols = [];
 
-document.addEventListener('load', resetGame());
-const resetButton = document.getElementsByClassName('fa-repeat')[0];
-resetButton.addEventListener('click', resetGame);
-
-function resetGame() {
-  const allOpenCards = document.querySelectorAll('.open, .show, .match');
-  for (let i = 0; i < allOpenCards.length; i++) {
-    allOpenCards[i].classList.remove('open', 'show', 'match');
-  }
-}
-
 function moveCounterIncrement() {
-  // eslint-disable-next-line no-undef
   const counterElement = document.getElementsByClassName('moves')[0];
   counterElement.innerHTML = moveCounter;
 }
@@ -80,6 +68,19 @@ function starCounterIncrement() {
     starList[1].classList.remove('glow');
   }
 }
+
+
+function resetGame() {
+  document.getElementsByClassName('moves')[0].innerHTML = 0;
+  const allOpenCards = document.querySelectorAll('.open, .show, .match');
+  for (let i = 0; i < allOpenCards.length; i++) {
+    allOpenCards[i].classList.remove('open', 'show', 'match');
+  }
+}
+
+document.addEventListener('load', resetGame());
+const resetButton = document.getElementsByClassName('fa-repeat')[0];
+resetButton.addEventListener('click', resetGame);
 
 
 function getCardSymbol(selectedCard) {
