@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
@@ -41,83 +42,30 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+
 // Set up Event Listener for deck,
 //  Open CMD and Use live-server in the parent folder
 const cardDeck = document.getElementById('deck');
 let moveCounter = 0;
 const openCards = [];
-const openCardSymbols = [];
+let openCardSymbols = [];
 
-
-cardDeck.addEventListener('click', (ev) => {
-  if (ev.target.className === 'card' && ev.target.nodeName === 'LI') {
-    const selectedCard = ev.target;
-    openCards.push(selectedCard);
-    selectedCard.classList.add('open', 'show');
-
-    const selectedCardSymbol = selectedCard.childNodes[1].className;
-    openCardSymbols.push(selectedCardSymbol);
-    moveCounter += 1;
-
-    allOpen(selectedCard);
-    moveCounterIncrement();
-    starCounterIncrement();
-  }
-});
-
-
-//  cardDeck.addEventListener("click", allOpen)
-function makeMatch(cardNode) {
-  cardNode.classList.add('match');
-  cardNode.classList.remove('open', 'show');
-  return cardNode;
-}
-
-function notMatch(cardNode) {
-  cardNode.classList.remove('open', 'show');
-  return cardNode;
-}
-
-function allOpen(selectedCard) {
-  const allOpenCards = document.querySelectorAll('.open');
-  if (allOpenCards.length < 3) {
-    if (cardSymbol[0] === cardSymbol[1]) {
-      allOpenCards[0] = makeMatch(allOpenCards[0]);
-      allOpenCards[1] = makeMatch(allOpenCards[1]);
-    } else {
-      allOpenCards[0] = notMatch(allOpenCards[0]);
-      allOpenCards[1] = notMatch(allOpenCards[1]);
-    }
-  } else {
-    console.log('Only One Open');
-  }
-}
-
-
-
-
-
-const resetButton = document.getElementsByClassName("fa-repeat")[0];
+document.addEventListener('load', resetGame());
+const resetButton = document.getElementsByClassName('fa-repeat')[0];
 resetButton.addEventListener('click', resetGame);
 
 function resetGame() {
-  console.log("Clicked");
   const allOpenCards = document.querySelectorAll('.open, .show, .match');
-  console.log(allOpenCards);
   for (let i = 0; i < allOpenCards.length; i++) {
     allOpenCards[i].classList.remove('open', 'show', 'match');
   }
 }
-
-document.addEventListener("load", resetGame());
-
 
 function moveCounterIncrement() {
   // eslint-disable-next-line no-undef
   const counterElement = document.getElementsByClassName('moves')[0];
   counterElement.innerHTML = moveCounter;
 }
-
 
 function starCounterIncrement() {
   const stars = document.getElementsByClassName('stars')[0];
@@ -132,3 +80,82 @@ function starCounterIncrement() {
     starList[1].classList.remove('glow');
   }
 }
+
+
+function getCardSymbol(selectedCard) {
+  const selectedCardSymbol = selectedCard.childNodes[1].className;
+  return selectedCardSymbol;
+}
+
+function cardTurn(selectedCard) {
+  moveCounter += 1;
+  openCards.push(selectedCard);
+  openCardSymbols.push(getCardSymbol(selectedCard));
+}
+
+function checkAllOpenCards() {
+  const allOpenCards = document.querySelectorAll('.open');
+  return allOpenCards;
+}
+
+// Add Match Class to Matched Cards
+function makeMatch(cardNode) {
+  cardNode.classList.add('match');
+  cardNode.classList.remove('open', 'show');
+  return cardNode;
+}
+
+function cardMatchTurn(allOpenCards) {
+  allOpenCards[0] = makeMatch(allOpenCards[0]);
+  allOpenCards[1] = makeMatch(allOpenCards[1]);
+}
+// Remove Open and Show classes with revealed cards dont match
+function makeNotMatch(cardNode) {
+  cardNode.classList.remove('open', 'show');
+  return cardNode;
+}
+
+function cardNotMatchTurn(allOpenCards) {
+  allOpenCards[0] = makeNotMatch(allOpenCards[0]);
+  allOpenCards[1] = makeNotMatch(allOpenCards[1]);
+}
+
+
+function isCardMatch() {
+  const card1 = openCardSymbols[0];
+  const card2 = openCardSymbols[1];
+  let matchDetected = false;
+  if (card1 === card2) { matchDetected = true; }
+  return matchDetected;
+}
+
+cardDeck.addEventListener('click', (ev) => {
+  debugger;
+  if (ev.target.className === 'card' && ev.target.nodeName === 'LI') {
+    const selectedCard = ev.target;
+    selectedCard.classList.add('open', 'show');
+    cardTurn(selectedCard);
+
+    // Check allOpenCards
+    const allOpenCards = checkAllOpenCards();
+    if (allOpenCards.length == 3) {
+      for (let i = 0; i < allOpenCards.length; i++) {
+        allOpenCards[i].classList.remove('open', 'show');
+      }
+    }
+
+    if (allOpenCards.length == 2) {
+      if (isCardMatch() === true) { // check if the cards match
+        cardMatchTurn(allOpenCards); // if the match switch then to open
+      } else {
+        setTimeout(() => {
+          cardNotMatchTurn(allOpenCards);
+        }, 500);
+      }
+      openCardSymbols = [];
+    }
+
+    moveCounterIncrement();
+    starCounterIncrement();
+  }
+});
