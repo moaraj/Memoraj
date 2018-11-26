@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /*
  * Create a list that holds all of your cards
  */
@@ -12,17 +13,18 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  let currentIndex = array.length; var temporaryValue; var 
+randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 
@@ -37,43 +39,66 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- // Set up Event Listener for deck, 
+// Set up Event Listener for deck,
 //  Open CMD and Use live-server in the parent folder
-let cardDeck = document.getElementById("deck");
+const cardDeck = document.getElementById('deck');
 let moveCounter = 0;
+const openCards = [];
+const openCardSymbols = [];
 
-openCards = [];
-openCardSymbols = [];
 
-
- cardDeck.addEventListener("click", function(ev){
+cardDeck.addEventListener('click', (ev) => {
      if (ev.target.className == "card" && ev.target.nodeName == "LI") {
         let selectedCard = ev.target;
         openCards.push(selectedCard);
-        selectedCard.classList.add("open","show");
+        selectedCard.classList.add("oen","show");
+         moveCounter += 1;
 
         let cardSymbol = selectedCard.childNodes[1].className;
-        openCardSymbols.push(cardSymbol);
+    openCardSymbols.push(cardSymbol);
         allOpen();
+    moveCounterIncrement();
      }
  });
 
- 
 
 //  cardDeck.addEventListener("click", allOpen)
- function allOpen() {
-     let allOpenCards = document.querySelectorAll(".open");
-     console.log(allOpenCards);
-     if (allOpenCards.length > 2) {
-        allOpenCards.forEach(element => {
-            element.classList.remove("open", "show");
-        });
-     }
-    }
+function allOpen() {
+  const allOpenCards = document.querySelectorAll('.open');
+  if (allOpenCards.length > 2) {
+    allOpenCards.forEach((element) => {
+      element.classList.remove('open', 'show');
+    });
+  }
+}
 
 
-    function resetGame() {
-        let allOpenCards = document.querySelectorAll(".open");
-        addEventListener("click", );
+function resetGame() {
+  const allOpenCards = document.querySelectorAll('.open');
+  addEventListener('click');
 
-    }
+}
+
+function scoreKeeping() {
+
+}
+
+function moveCounterIncrement() {
+  const counterElement = document.getElementsByClassName('moves')[0];
+  counterElement.innerHTML = moveCounter;
+}
+
+
+function starCounterIncrement() {
+  const stars = document.getElementsByClassName('stars')[0];
+  const starList = stars.querySelectorAll('LI');
+  const starArray = Array.from(starList);
+
+  if (moveCounter < 20) {
+    starArray.map(starItem => starItem.classList.add('glow'));
+  } else if (moveCounter > 25) {
+    starList[2].classList.remove('glow');
+  } else if (moveCounter > 30) {
+    starList[1].classList.remove('glow');
+  }
+}
