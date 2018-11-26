@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
 /* eslint-disable linebreak-style */
 /*
  * Create a list that holds all of your cards
@@ -48,15 +50,16 @@ const openCardSymbols = [];
 
 
 cardDeck.addEventListener('click', (ev) => {
-  if (ev.target.className == 'card' && ev.target.nodeName == 'LI') {
+  if (ev.target.className === 'card' && ev.target.nodeName === 'LI') {
     const selectedCard = ev.target;
     openCards.push(selectedCard);
-    selectedCard.classList.add('oen', 'show');
+    selectedCard.classList.add('open', 'show');
+
+    const selectedCardSymbol = selectedCard.childNodes[1].className;
+    openCardSymbols.push(selectedCardSymbol);
     moveCounter += 1;
 
-    const cardSymbol = selectedCard.childNodes[1].className;
-    openCardSymbols.push(cardSymbol);
-    allOpen();
+    allOpen(selectedCard);
     moveCounterIncrement();
     starCounterIncrement();
   }
@@ -64,20 +67,49 @@ cardDeck.addEventListener('click', (ev) => {
 
 
 //  cardDeck.addEventListener("click", allOpen)
-function allOpen() {
+function makeMatch(cardNode) {
+  cardNode.classList.add('match');
+  cardNode.classList.remove('open', 'show');
+  return cardNode;
+}
+
+function notMatch(cardNode) {
+  cardNode.classList.remove('open', 'show');
+  return cardNode;
+}
+
+function allOpen(selectedCard) {
   const allOpenCards = document.querySelectorAll('.open');
-  if (allOpenCards.length > 2) {
-    allOpenCards.forEach((element) => {
-      element.classList.remove('open', 'show');
-    });
+  if (allOpenCards.length < 3) {
+    if (cardSymbol[0] === cardSymbol[1]) {
+      allOpenCards[0] = makeMatch(allOpenCards[0]);
+      allOpenCards[1] = makeMatch(allOpenCards[1]);
+    } else {
+      allOpenCards[0] = notMatch(allOpenCards[0]);
+      allOpenCards[1] = notMatch(allOpenCards[1]);
+    }
+  } else {
+    console.log('Only One Open');
   }
 }
 
 
-/* function resetGame() {
-  const allOpenCards = document.querySelectorAll('.open');
-  allOpenCards.classList.remove('open match');
-} */
+
+
+
+const resetButton = document.getElementsByClassName("fa-repeat")[0];
+resetButton.addEventListener('click', resetGame);
+
+function resetGame() {
+  console.log("Clicked");
+  const allOpenCards = document.querySelectorAll('.open, .show, .match');
+  console.log(allOpenCards);
+  for (let i = 0; i < allOpenCards.length; i++) {
+    allOpenCards[i].classList.remove('open', 'show', 'match');
+  }
+}
+
+document.addEventListener("load", resetGame());
 
 
 function moveCounterIncrement() {
