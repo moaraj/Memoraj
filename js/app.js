@@ -1,4 +1,6 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable no-param-reassign */
+/* eslint-disable linebreak-style */
 /* eslint-disable no-debugger */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
@@ -29,6 +31,35 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+function cardArrayCreate() {
+  let cardSymbols = ['fa-diamond',
+    'fa-paper-plane-o',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-cube',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-bomb'];
+  cardSymbols = cardSymbols.concat(cardSymbols);
+  let cardList = shuffle(cardSymbols);
+  return cardList;
+}
+
+function deckFromCardArray() {
+  const cardDeck = document.getElementById('deck');
+
+  let cardArray = cardArrayCreate();
+  cardArray.forEach((element) => {
+    let cardIcon = document.createElement('i');
+    cardIcon.classList.add('fa',element);
+    let newCard = document.createElement('li');
+    newCard.classList.add('card');
+    newCard.appendChild(cardIcon);
+    cardDeck.appendChild(newCard);
+    console.log(newCard);
+  });
 }
 
 
@@ -73,8 +104,8 @@ function starCounterIncrement() {
   }
 }
 
-
 function resetGame() {
+  deckFromCardArray();
   moveCounter = 0;
   matchCounter = 0;
   const screenPage = document.getElementsByClassName('win-screen')[0];
@@ -88,6 +119,7 @@ function resetGame() {
 }
 
 document.addEventListener('load', resetGame());
+
 const resetButton = document.getElementsByClassName('fa-repeat')[0];
 resetButton.addEventListener('click', resetGame);
 
