@@ -48,8 +48,11 @@ function shuffle(array) {
 //  Open CMD and Use live-server in the parent folder
 const cardDeck = document.getElementById('deck');
 let moveCounter = 0;
+let matchCounter = 0;
+
 let openCards = [];
 let openCardSymbols = [];
+
 
 function moveCounterIncrement() {
   const counterElement = document.getElementsByClassName('moves')[0];
@@ -73,6 +76,10 @@ function starCounterIncrement() {
 
 function resetGame() {
   moveCounter = 0;
+  matchCounter = 0;
+  const screenPage = document.getElementsByClassName('win-screen')[0];
+  screenPage.classList.remove('win-screen-visible');
+
   document.getElementsByClassName('moves')[0].innerHTML = 0;
   const allOpenCards = document.querySelectorAll('.open, .show, .match');
   for (let i = 0; i < allOpenCards.length; i++) {
@@ -109,7 +116,6 @@ function makeMatch(cardNode) {
 }
 
 function cardMatchTurn(allOpenCards) {
-  debugger;
   allOpenCards[0] = makeMatch(allOpenCards[0]);
   allOpenCards[1] = makeMatch(allOpenCards[1]);
 }
@@ -124,13 +130,22 @@ function cardNotMatchTurn(allOpenCards) {
   allOpenCards[1] = makeNotMatch(allOpenCards[1]);
 }
 
-
 function isCardMatch() {
   const card1 = openCardSymbols[openCardSymbols.length-1];
   const card2 = openCardSymbols[openCardSymbols.length-2];
   let matchDetected = false;
   if (card1 === card2) { matchDetected = true; }
   return matchDetected;
+}
+
+function winScreen() {
+  if (matchCounter === 1) {
+    let screenPage = document.getElementsByClassName('win-screen')[0];
+    let numWinMoves = document.getElementsByClassName('win-count')[0];
+
+    screenPage.classList.add('win-screen-visible');
+    numWinMoves.innerHTML = moveCounter;
+  }
 }
 
 cardDeck.addEventListener('click', (ev) => {
@@ -147,9 +162,10 @@ cardDeck.addEventListener('click', (ev) => {
       }
     }
 
-    if (allOpenCards.length == 2) {
+    if (allOpenCards.length === 2) {
       if (isCardMatch() === true) { // check if the cards match
         cardMatchTurn(allOpenCards); // if the match switch then to open
+        matchCounter += 1;
       } else {
         setTimeout(() => {
           cardNotMatchTurn(allOpenCards);
@@ -161,5 +177,6 @@ cardDeck.addEventListener('click', (ev) => {
 
     moveCounterIncrement();
     starCounterIncrement();
+    winScreen();
   }
 });

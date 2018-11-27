@@ -63,6 +63,7 @@ h1 {
     justify-content: center;
     align-items: center;
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+    transition: 200ms;
 }
 
 .deck .card.open {
@@ -71,14 +72,29 @@ h1 {
     cursor: default;
 }
 
+.card:hover{
+    background-color: #4b677e;
+}
+
 .deck .card.show {
     font-size: 33px;
+}
+
+@keyframes sucess{
+    0%{ transform: scale(1);}
+    100%{transform: scale(1.1);}
 }
 
 .deck .card.match {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
+    animation-name: sucess;
+    animation-duration: 200ms;
+    animation-fill-mode: backwards;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+    animation-timing-function: ease;
 }
 
 /*
@@ -110,4 +126,77 @@ h1 {
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.win-screen {
+    display: none;
+    position: absolute;
+    background-color: #6a7177af;
+    border-radius: 8px;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.win-screen-visible {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    animation-name: winscreen;
+    animation-duration: 500ms;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: ease;
+}
+
+
+@keyframes winscreen{
+    0%{ 
+
+
+        height: 0vh;
+        width: 0vw;
+    }
+    25%{
+        height: 0vh;
+        width: 50vw;
+    }
+    to {
+        top: 200px;
+        height: 40vh;
+        width: 50vw;
+    }
+}
+
+.win-text {
+
+    color: azure;
+    font-weight: 100;
+    font-size: 50px;
+    text-align: center;
+    max-width: 40vw;
+
+    animation-name: winscreen-text;
+    animation-duration: 500ms;
+    animation-delay: 200ms;
+    animation-fill-mode: both;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-timing-function: ease;
+}
+
+@keyframes winscreen-text{
+    0% {
+        font-size: 0px;
+        display: none;
+    }
+    70% {
+        font-size: 40px;
+        display: flex;
+    }
+    100% {
+        font-size: 40px;
+    }
+
 }
