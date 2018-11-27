@@ -1,20 +1,25 @@
 # Memory Game Project
+## Introduction
+<img src="https://github.com/moaraj/Memoraj/blob/master/img/docs.PNG" width="600px">
+Memoraj is an fun memory game made by Moaraj Hasan
 
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Contributing](#Contributing)
+* [License](#License)
 
 ## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+This is a simple memory game built in javascript.
+1. Clone a local directory with the command
+```
+git clone https://github.com/moaraj/Memoraj.git
+```
+2. Open index.html in chrome
+3. Play Memoraj
 
 ## Contributing
+To conbribute features to memoraj, fork the repo and send pull requests when an intresting feature has bee added.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## License
+This project is licensed under the terms of the MIT license.
