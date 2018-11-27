@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 /* eslint-disable no-debugger */
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
@@ -47,7 +48,7 @@ function shuffle(array) {
 //  Open CMD and Use live-server in the parent folder
 const cardDeck = document.getElementById('deck');
 let moveCounter = 0;
-const openCards = [];
+let openCards = [];
 let openCardSymbols = [];
 
 function moveCounterIncrement() {
@@ -60,9 +61,9 @@ function starCounterIncrement() {
   const starList = stars.querySelectorAll('LI');
   const starArray = Array.from(starList);
 
-  if (moveCounter < 4) {
+  if (moveCounter < 20) {
     starArray.map(starItem => starItem.classList.add('glow'));
-  } else if (moveCounter < 8) {
+  } else if (moveCounter < 30) {
     starList[2].classList.remove('glow');
   } else {
     starList[1].classList.remove('glow');
@@ -71,6 +72,7 @@ function starCounterIncrement() {
 
 
 function resetGame() {
+  moveCounter = 0;
   document.getElementsByClassName('moves')[0].innerHTML = 0;
   const allOpenCards = document.querySelectorAll('.open, .show, .match');
   for (let i = 0; i < allOpenCards.length; i++) {
@@ -107,6 +109,7 @@ function makeMatch(cardNode) {
 }
 
 function cardMatchTurn(allOpenCards) {
+  debugger;
   allOpenCards[0] = makeMatch(allOpenCards[0]);
   allOpenCards[1] = makeMatch(allOpenCards[1]);
 }
@@ -123,15 +126,14 @@ function cardNotMatchTurn(allOpenCards) {
 
 
 function isCardMatch() {
-  const card1 = openCardSymbols[0];
-  const card2 = openCardSymbols[1];
+  const card1 = openCardSymbols[openCardSymbols.length-1];
+  const card2 = openCardSymbols[openCardSymbols.length-2];
   let matchDetected = false;
   if (card1 === card2) { matchDetected = true; }
   return matchDetected;
 }
 
 cardDeck.addEventListener('click', (ev) => {
-  debugger;
   if (ev.target.className === 'card' && ev.target.nodeName === 'LI') {
     const selectedCard = ev.target;
     selectedCard.classList.add('open', 'show');
@@ -154,6 +156,7 @@ cardDeck.addEventListener('click', (ev) => {
         }, 500);
       }
       openCardSymbols = [];
+      openCards = [];
     }
 
     moveCounterIncrement();
