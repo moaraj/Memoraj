@@ -80,6 +80,10 @@ function moveCounterIncrement() {
   counterElement.innerHTML = moveCounter.toString();
 }
 
+function slice(nodes) {
+  return Array.prototype.slice.call(nodes);
+}
+
 function starCounterIncrement() {
   const stars = document.getElementsByClassName('stars')[0];
   const starList = stars.querySelectorAll('LI');
@@ -94,12 +98,19 @@ function starCounterIncrement() {
   }
 }
 
+var timer = new Timer();
+timer.start();
+timer.addEventListener('secondsUpdated', function (e) {
+  $('#gameTimer').html(timer.getTimeValues().toString());
+});
+
 function resetGame() {
+  timer.reset();
   genDeckHTML();
   moveCounter = 0;
   matchCounter = 0;
   const screenPage = document.getElementsByClassName('win-screen')[0];
-  screenPage.classList.remove('win-screen-visible');
+  screenPage.classList.remove('win-screen-visible');     
 
   document.getElementsByClassName('moves')[0].innerHTML = 0;
   const allOpenCards = document.querySelectorAll('.open, .show, .match');
@@ -112,6 +123,7 @@ document.addEventListener('load', resetGame());
 
 const resetButton = document.getElementsByClassName('fa-repeat')[0];
 resetButton.addEventListener('click', resetGame);
+
 
 
 function cardTurn(selectedCard) {
@@ -166,8 +178,8 @@ function winScreen() {
   }
 }
 
+
 cardDeck.addEventListener('click', (ev) => {
-  debugger;
   if (ev.target.className === 'card' && ev.target.nodeName === 'LI') {
     const selectedCard = ev.target;
     selectedCard.classList.add('open', 'show');
@@ -200,3 +212,4 @@ cardDeck.addEventListener('click', (ev) => {
     winScreen();
   }
 });
+

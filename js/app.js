@@ -64,6 +64,9 @@ function moveCounterIncrement() {
     var counterElement = document.getElementsByClassName('moves')[0];
     counterElement.innerHTML = moveCounter.toString();
 }
+function slice(nodes) {
+    return Array.prototype.slice.call(nodes);
+}
 function starCounterIncrement() {
     var stars = document.getElementsByClassName('stars')[0];
     var starList = stars.querySelectorAll('LI');
@@ -78,7 +81,13 @@ function starCounterIncrement() {
         starList[1].classList.remove('glow');
     }
 }
+var timer = new Timer();
+timer.start();
+timer.addEventListener('secondsUpdated', function (e) {
+    $('#gameTimer').html(timer.getTimeValues().toString());
+});
 function resetGame() {
+    timer.reset();
     genDeckHTML();
     moveCounter = 0;
     matchCounter = 0;
@@ -140,7 +149,6 @@ function winScreen() {
     }
 }
 cardDeck.addEventListener('click', function (ev) {
-    debugger;
     if (ev.target.className === 'card' && ev.target.nodeName === 'LI') {
         var selectedCard = ev.target;
         selectedCard.classList.add('open', 'show');
