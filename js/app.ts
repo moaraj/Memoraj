@@ -104,8 +104,8 @@ timer.addEventListener('secondsUpdated', function (e) {
 });
 
 function resetGame() {
-  timer.reset();
   genDeckHTML();
+  timer.reset();
   moveCounter = 0;
   matchCounter = 0;
   const screenPage = document.getElementsByClassName('win-screen')[0];
@@ -116,6 +116,8 @@ function resetGame() {
   for (let i = 0; i < allOpenCards.length; i++) {
     allOpenCards[i].classList.remove('open', 'show', 'match');
   }
+
+  starCounterIncrement();
 }
 
 document.addEventListener('load', resetGame());
@@ -196,7 +198,6 @@ function winScreen() {
   }
 }
 
-
 cardDeck.addEventListener('click', (ev) => {
   if (ev.target.className === 'card' && ev.target.nodeName === 'LI') {
     const selectedCard = ev.target;
@@ -230,4 +231,5 @@ cardDeck.addEventListener('click', (ev) => {
     winScreen();
   }
 });
+
 

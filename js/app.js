@@ -87,8 +87,8 @@ timer.addEventListener('secondsUpdated', function (e) {
     $('#gameTimer').html(timer.getTimeValues().toString());
 });
 function resetGame() {
-    timer.reset();
     genDeckHTML();
+    timer.reset();
     moveCounter = 0;
     matchCounter = 0;
     var screenPage = document.getElementsByClassName('win-screen')[0];
@@ -98,6 +98,7 @@ function resetGame() {
     for (var i = 0; i < allOpenCards.length; i++) {
         allOpenCards[i].classList.remove('open', 'show', 'match');
     }
+    starCounterIncrement();
 }
 document.addEventListener('load', resetGame());
 var resetButton = document.getElementsByClassName('fa-repeat')[0];
