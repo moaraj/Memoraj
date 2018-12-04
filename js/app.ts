@@ -180,7 +180,7 @@ function winTimeTextGen(){
 }
 
 function winScreen() {
-  if (matchCounter === 1) {
+  if (matchCounter === 8) {
     debugger;
     const winTimeText = winTimeTextGen()
     timer.stop();

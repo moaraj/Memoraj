@@ -152,7 +152,7 @@ function winTimeTextGen() {
     }
 }
 function winScreen() {
-    if (matchCounter === 1) {
+    if (matchCounter === 8) {
         debugger;
         var winTimeText = winTimeTextGen();
         timer.stop();
