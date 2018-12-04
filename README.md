@@ -18,6 +18,10 @@ git clone https://github.com/moaraj/Memoraj.git
 2. Open index.html in chrome
 3. Play Memoraj
 
+## Dependencies
+- [JQuery](https://github.com/jquery/jquery)
+- [EasyTimer.js](https://albert-gonzalez.github.io/easytimer.js/)
+
 ## Contributing
 To conbribute features to memoraj, fork the repo and send pull requests when an intresting feature has bee added.
 
