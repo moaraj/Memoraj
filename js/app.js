@@ -140,12 +140,28 @@ function isCardMatch() {
     }
     return matchDetected;
 }
+function winTimeTextGen() {
+    var winMins = timer.getTotalTimeValues()['minutes'];
+    var winSecs = timer.getTotalTimeValues()['seconds'];
+    var winTimeText = "";
+    if (winSecs > 60) {
+        return winMins + " minutes and " + winSecs + " seconds";
+    }
+    else {
+        return winSecs + " seconds";
+    }
+}
 function winScreen() {
-    if (matchCounter === 8) {
+    if (matchCounter === 1) {
+        debugger;
+        var winTimeText = winTimeTextGen();
+        timer.stop();
         var screenPage = document.getElementsByClassName('win-screen')[0];
         var numWinMoves = document.getElementsByClassName('win-count')[0];
+        var winTime = document.getElementsByClassName('win-time')[0];
+        winTime.innerHTML = winTimeText;
+        numWinMoves.innerHTML = moveCounter.toString();
         screenPage.classList.add('win-screen-visible');
-        numWinMoves.innerHTML = moveCounter;
     }
 }
 cardDeck.addEventListener('click', function (ev) {

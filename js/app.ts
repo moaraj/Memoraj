@@ -70,7 +70,6 @@ function genDeckHTML() {
 const cardDeck = document.getElementById('deck');
 let moveCounter = 0;
 let matchCounter = 0;
-
 let openCards = [];
 let openCardSymbols = [];
 
@@ -168,13 +167,32 @@ function isCardMatch() {
   return matchDetected;
 }
 
+function winTimeTextGen(){
+  const winMins = timer.getTotalTimeValues()['minutes']
+  const winSecs = timer.getTotalTimeValues()['seconds']
+  let winTimeText = ""
+
+  if (winSecs > 60) {
+    return `${winMins} minutes and ${winSecs} seconds`;
+  } else {
+    return `${winSecs} seconds`;
+  }
+}
+
 function winScreen() {
-  if (matchCounter === 8) {
+  if (matchCounter === 1) {
+    debugger;
+    const winTimeText = winTimeTextGen()
+    timer.stop();
+    
     const screenPage = document.getElementsByClassName('win-screen')[0];
     const numWinMoves = document.getElementsByClassName('win-count')[0];
+    const winTime = document.getElementsByClassName('win-time')[0];
 
-    screenPage.classList.add('win-screen-visible');
-    numWinMoves.innerHTML = moveCounter;
+    winTime.innerHTML = winTimeText;
+    numWinMoves.innerHTML = moveCounter.toString() ;
+    screenPage.classList.add('win-screen-visible'); 
+
   }
 }
 
